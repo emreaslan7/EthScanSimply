@@ -1,12 +1,26 @@
-// import Navbar from '@/sections/navbar'
-// import Footer from '@/sections/footer'
+import { Inter } from '@next/font/google'
+import Header from '../Header'
+import Footer from '../Footer'
+import { Box } from '@chakra-ui/react'
+
+const interFontFamily = Inter({ subsets: ['latin'] });
 
 export default function Layout({ children }) {
     return (
-        <>
-            {/* <Navbar /> */}
-            <main>{children}</main>
-            {/* <Footer /> */}
-        </>
+        <div className={interFontFamily.className}>
+            <Box display="flex" flexDirection="column" height="100vh">
+            
+                <Header/>
+
+                    <Box bg={"#83a8f9"} color="white" flex="1">
+                        {children}
+                    </Box>
+                    
+                <Footer/>
+
+            </Box>
+        </div>
+
+
     )
 }

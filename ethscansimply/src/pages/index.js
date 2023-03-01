@@ -1,5 +1,9 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
+import { Box, Grid, GridItem } from '@chakra-ui/react'
+import Blockchain from '../components/Blockchain'
+import Txdetails from '../components/Txdetails'
+import Tokeninfos from '../components/Tokeninfos'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,7 +16,28 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      hi from ether
+
+      <div style={{ display: "flex", justifyContent: "center", height:"100%"}}>
+      <Grid flex={1}
+      templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
+      gap={4}>
+        <GridItem justifySelf="center" alignSelf="center">
+          <Blockchain/>
+        </GridItem>
+      <GridItem justifySelf="center" alignSelf="center">
+        <Txdetails/>
+      </GridItem>
+      <GridItem justifySelf="center" alignSelf="center">
+        <Tokeninfos/>
+      </GridItem>
+      </Grid>
+      </div>
+
+
+
+
+
+
     </>
   )
 }
