@@ -5,13 +5,15 @@ import { InfoIcon } from '@chakra-ui/icons';
 
 function Txdetails() {
   return (
-    <Box>
+    <Box         
+    w={{ base: "300px", lg: "300px", xl: "400px", "2xl": "450px"  }}
+    h={{ base: "300px", lg: "300px", xl: "400px", "2xl": "450px"  }}>
     <Link href="/home" textDecoration="none">
     <Box
       display="flex"
       alignItems="center"
       justifyContent="center"
-      height="450px" width="450px"
+      height="100%" width="100%"
       borderRadius="xl"
       borderWidth="4px"
       borderColor="#9c8fd8"
@@ -27,15 +29,16 @@ function Txdetails() {
         placement='top-end' 
         openDelay={300} closeDelay={500} 
         bg='#9c8fd8' 
-        color='white' 
+        color='white'
+        fontSize={'22px'}
         borderRadius="md">
 
-          <InfoIcon position="absolute" top="0" right="0" m={2} color="#9c8fd8"/>
+          <InfoIcon boxSize={6} position="absolute" top="1" right="1" m={2} color="#9c8fd8"/>
 
       </Tooltip>
         
       
-        <Text fontSize='3xl' letterSpacing="0.3em" ml={3} color="#9c8fd8" fontWeight="extrabold" textDecoration="none" textAlign={"center"}>
+        <Text fontSize={{ base: '28px', xl:'36px', '2xl':'40px'}} letterSpacing="0.3em" ml={3} color="#9c8fd8" fontWeight="extrabold" textDecoration="none" textAlign={"center"}>
           BLOCKCHAIN STUFF
         </Text>
 

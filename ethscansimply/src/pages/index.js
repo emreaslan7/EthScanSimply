@@ -18,18 +18,21 @@ export default function Home() {
       </Head>
 
       <div style={{ display: "flex", justifyContent: "center", height:"100%"}}>
-      <Grid flex={1}
-      templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
-      gap={4}>
-        <GridItem justifySelf="center" alignSelf="center">
-          <Blockchain/>
-        </GridItem>
-      <GridItem justifySelf="center" alignSelf="center">
+
+
+      <Grid 
+      templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)",}}
+      gap={{ base: 4, sm: 6, lg: 8, xl: 11, "2xl": 20,}}
+      justifyContent="center"
+      alignItems="center">
+
+        <Blockchain/>
+        
+      
         <Txdetails/>
-      </GridItem>
-      <GridItem justifySelf="center" alignSelf="center">
+      
         <Tokeninfos/>
-      </GridItem>
+      
       </Grid>
       </div>
 
