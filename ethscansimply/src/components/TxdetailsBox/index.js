@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { Box, Text, Tooltip} from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
 
-function Tokeninfos() {
+function Txdetails() {
   return (
-    <Box
-    w={{ base: "300px", lg: "300px", xl: "400px", "2xl": "450px"}}
-    h={{ base: "300px", lg: "300px", xl: "400px", "2xl": "450px"}}>
-    <Link href="/home" textDecoration="none">
+    <Box         
+    w={{ base: "300px", lg: "300px", xl: "350px" }}
+    h={{ base: "300px", lg: "300px", xl: "350px" }}>
+    <Link href="/txdetails" textDecoration="none">
     <Box
       display="flex"
       alignItems="center"
@@ -30,15 +30,15 @@ function Tokeninfos() {
         openDelay={300} closeDelay={500} 
         bg='#9c8fd8' 
         color='white'
-        fontSize={'22px'}
+        fontSize={'12px'}
         borderRadius="md">
 
-          <InfoIcon boxSize={6} position="absolute" top="1" right="1" m={2} color="#9c8fd8"/>
+          <InfoIcon boxSize={5} position="absolute" top="1" right="1" m={1} color="#9c8fd8"/>
 
       </Tooltip>
         
       
-        <Text fontSize={{ base: '28px', xl:'36px', '2xl':'40px'}} letterSpacing="0.3em" ml={3} color="#9c8fd8" fontWeight="extrabold" textDecoration="none" textAlign={"center"}>
+        <Text fontSize={{ base: '28px', xl:'32px'}} letterSpacing="0.3em" ml={3} color="#9c8fd8" fontWeight="extrabold" textDecoration="none" textAlign={"center"}>
           BLOCKCHAIN STUFF
         </Text>
 
@@ -48,4 +48,4 @@ function Tokeninfos() {
   )
 }
 
-export default Tokeninfos;
+export default Txdetails;

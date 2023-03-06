@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
+import { Inter } from '@next/font/google'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
-import Blockchain from '../components/Blockchain'
-import Txdetails from '../components/Txdetails'
-import Tokeninfos from '../components/Tokeninfos'
+import BlockchainBox from '../components/BlockchainBox'
+import TxdetailsBox from '../components/TxdetailsBox'
+import TokeninfosBox from '../components/TokeninfosBox'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,12 +26,11 @@ export default function Home() {
       justifyContent="center"
       alignItems="center">
 
-        <Blockchain/>
-        
+        <BlockchainBox/>
       
-        <Txdetails/>
+        <TxdetailsBox/>
       
-        <Tokeninfos/>
+        <TokeninfosBox/>
       
       </Grid>
       </div>

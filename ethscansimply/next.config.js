@@ -3,4 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+module.exports = {
+  env: {
+    INFURA_API_KEY: process.env.INFURA_API_KEY,
+  },
+  nextConfig
+}
