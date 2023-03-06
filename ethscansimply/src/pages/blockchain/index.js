@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Box, Image } from '@chakra-ui/react';
 import { Blockchainquery } from "../../ethers/blockchainquery";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+
+
 
 const blockchain = new Blockchainquery();
 
@@ -20,6 +24,47 @@ function Blockchain() {
 
   return (
     <div>
+      <Box display={'flex'} alignItems='center' justifyContent={'center'}>
+      <Box w={'100px'} h={'100px'}>
+        <Image src='/assets/block.png' objectFit='cover'/>
+      </Box>
+      <Box w={'100px'} h={'100px'} display='flex' alignItems='center' justifyContent={'center'}>
+        <Image src='/assets/chain.png' objectFit='cover'/>
+      </Box>
+      </Box>
+
+      <Tabs colorScheme='teal' align='left'>
+      <TabList mb='1em'>
+      <Tab><Box w={'100px'} h={'100px'}>
+        <Image src='/assets/block.png' objectFit='cover'/>
+      </Box></Tab>
+      <Box w={'100px'} h={'100px'} display='flex' alignItems='center' justifyContent={'center'}>
+        <Image src='/assets/chain.png' objectFit='cover'/>
+      </Box>
+      <Tab>      <Box w={'100px'} h={'100px'}>
+        <Image src='/assets/block.png' objectFit='cover'/>
+      </Box></Tab>
+      <Box w={'100px'} h={'100px'} display='flex' alignItems='center' justifyContent={'center'}>
+        <Image src='/assets/chain.png' objectFit='cover'/>
+      </Box>
+      <Tab>      <Box w={'100px'} h={'100px'}>
+        <Image src='/assets/block.png' objectFit='cover'/>
+      </Box></Tab>
+      </TabList>
+      <TabPanels>
+      <TabPanel>
+      <p>Block 1</p>
+      </TabPanel>
+      <TabPanel>
+      <p>Block2</p>
+      </TabPanel>
+      <TabPanel>
+      <p>Block3</p>
+      </TabPanel>
+      </TabPanels>
+      </Tabs>
+
+      
       {/* <h1>Son blok numarası: {blockNumber}</h1>
       {block && (
         <div>
