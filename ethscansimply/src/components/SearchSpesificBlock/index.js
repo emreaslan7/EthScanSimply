@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
-  Container,
-  Flex,
   Image,
   Collapse,
   Button,
-  Input,
   InputGroup,
-  InputRightElement,
   FormControl,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
   NumberInputField,
-  NumberInputStepper,
   FormLabel,
   NumberInput,
-  InputLeftElement
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 
@@ -34,9 +26,9 @@ function SearchSpesificBlock() {
 
 
   return (
-    <Box display='flex' flexDirection={'column'} alignItems={'center'} justifyContent='center'>
-    <Box >
-        <Image src="/assets/block.png" w={"100px"} h={"100px"} objectFit="cover" />
+    <Box display='flex' flexDirection={'column'} alignItems={'center'} justifyContent='center' mt={3.75}>
+    <Box my={4} w={{base:'70px', md:"140px"}} h={{base:'70px', md:"140px"}}>
+        <Image src="/assets/block.png" objectFit="cover" />
     </Box>
     <Box>
     <FormControl>
@@ -71,7 +63,8 @@ function SearchSpesificBlock() {
             //   width="100%"
             //   zIndex={1}
             >
-              sEAŞDFLŞASDMFLŞAMFLŞADMALŞMDŞLAMDFLŞAMDF {blockvalue}
+              s {blockvalue}
+            
             </Box>
         </Collapse>
     </Box>  
