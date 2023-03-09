@@ -38,7 +38,7 @@ function Blockchain() {
   };
 
   return (
-    <Container maxW="container.xl" bg={"green.500"}>
+    <Container maxW="container.xl">
       <Flex direction={{ base: "column", lg: "row" }}>
 
         <SearchLatestBlocks />

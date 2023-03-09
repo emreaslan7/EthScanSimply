@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import {
   Box,
   Image,
@@ -11,64 +11,60 @@ import {
   NumberInput,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
+import BlocksInfo from "../BlocksInfo";
 
 function SearchSpesificBlock() {
+  const { isOpen, onToggle } = useDisclosure();
+  const [value, setValue] = useState("");
+  const [blockvalue, setblockvalue] = useState(null);
 
-    const { isOpen, onToggle } = useDisclosure();
+  useEffect(() => {
+    console.log("Block value changed");
+  }, [blockvalue]);
 
-    const [value, setValue] = useState();
-    const [blockvalue, setblockvalue] = useState("");
-  
-    const handleButtonClick = () => {
-      setblockvalue(value);
-    };
-
-
-
+  const handleButtonClick = () => {
+    setblockvalue(Number(value));
+    onToggle();
+  };
+  console.log(blockvalue);
+  console.log(typeof(blockvalue));
   return (
-    <Box display='flex' flexDirection={'column'} alignItems={'center'} justifyContent='center' mt={3.75}>
-    <Box my={4} w={{base:'70px', md:"140px"}} h={{base:'70px', md:"140px"}}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      mt={3.75}
+      key={blockvalue}
+    >
+      <Box my={4} w={{ base: "70px", md: "140px" }} h={{ base: "70px", md: "140px" }}>
         <Image src="/assets/block.png" objectFit="cover" />
-    </Box>
-    <Box>
-    <FormControl>
-      <FormLabel>You can search a spesific block on Ethereum </FormLabel>
-        <InputGroup>
-          <NumberInput
-            onChangeCapture={(e) => setValue(e.target.value)}
-          >
-            <NumberInputField />
-          </NumberInput>
+      </Box>
+      <Box>
+        <FormControl>
+          <FormLabel>You can search a specific block on Ethereum </FormLabel>
+          <InputGroup>
+            <NumberInput onChangeCapture={(e) => setValue(e.target.value)} value={value}>
+              <NumberInputField />
+            </NumberInput>
 
-            <Button
-              onClick={() => {
-                onToggle();
-                handleButtonClick();
-              }}
-            >
-              Search
-            </Button>
-        </InputGroup>
+            <Button onClick={handleButtonClick}>Search</Button>
+          </InputGroup>
         </FormControl>
+      </Box>
+      <Collapse in={isOpen} animateOpacity>
+        {blockvalue && (
+          <>
+            {/* <Box p="40px" color="white" mt="4" rounded="md" shadow="md">
+              Block Number: {blockvalue}
+            </Box> */}
+            <BlocksInfo BlockNo={blockvalue} />
+          </>
+        )}
+      </Collapse>
     </Box>
-        <Collapse in={isOpen} animateOpacity>
-            <Box
-              p="40px"
-              color="white"
-              mt="4"
-              bg="teal.500"
-              rounded="md"
-              shadow="md"
-            //   position="absolute"
-            //   width="100%"
-            //   zIndex={1}
-            >
-              s {blockvalue}
-            
-            </Box>
-        </Collapse>
-    </Box>  
   );
 }
 
 export default SearchSpesificBlock;
+

@@ -11,7 +11,15 @@ export class Blockchainquery {
   }
 
   async getBlock(blockNumber) {
-    const block = await this.provider.getBlock(blockNumber);
+    const block = await this.provider.getBlock(Number(blockNumber));
+    console.log(block);
     return block;
+  }
+
+  formatAddress(address) {
+    if (!address) {
+      return "";
+    }
+    return `${address.substring(0, 6)}....${address.substring(address.length -4)}`;
   }
 }
