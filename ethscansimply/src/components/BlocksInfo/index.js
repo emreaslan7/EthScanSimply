@@ -1,24 +1,46 @@
-import { Box, Text, Table, Thead, Tbody, Tr, Th, Td, Center, Spinner} from "@chakra-ui/react";
+import { Box, Table,Tbody, Tr, Th, Td, Center, Spinner} from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Blockchainquery } from "../../ethers/blockchainquery";
+import { ethers } from "ethers";
 
 const blockchain = new Blockchainquery();
 
 function BlocksInfo(props) {
-  console.log(props);
+
   const [block, setBlock] = useState(null);
 
   useEffect(() => {
     async function fetchBlockchainData() {
       const latestBlockNumber = await blockchain.getBlockNumber();
+;
       const latestBlock = await blockchain.getBlock(
         latestBlockNumber - props.BlockNo
       );
+      console.log(latestBlock)
       setBlock(latestBlock);
     }
-    fetchBlockchainData();
+    if(props.BlockNo !== null){
+      fetchBlockchainData();
+    }
   }, [props.BlockNo]);
 
+  useEffect(() => {
+    async function fetchBlockchainData() {
+      let latestBlockNumber = await blockchain.getBlockNumber();
+      if(latestBlockNumber < props.QueryBlockNo){
+        const queryBlock = await blockchain.getBlock(latestBlockNumber);
+        setBlock(queryBlock);
+      }else{
+        const queryBlock = await blockchain.getBlock(props.QueryBlockNo);
+        setBlock(queryBlock);
+      }     
+
+    }
+    if(props.QueryBlockNo !== null){
+      fetchBlockchainData();
+    }
+  },[props.QueryBlockNo])
+  
   return (
     <Box p="4">
       {block ? (
@@ -29,7 +51,7 @@ function BlocksInfo(props) {
               <Td>{block.number}</Td>
             </Tr>
             <Tr>
-              <Th>Block miner:</Th>
+              <Th>Fee Recipient:</Th>
               <Td>{blockchain.formatAddress(block.miner)}</Td>
             </Tr>
             <Tr>
@@ -38,11 +60,11 @@ function BlocksInfo(props) {
             </Tr>
             <Tr>
               <Th>Gas limit:</Th>
-              <Td>{block.gasLimit.toString()}</Td>
+              <Td>{Number(block.gasLimit)}</Td>
             </Tr>
             <Tr>
               <Th>Gas Used:</Th>
-              <Td>{block.gasUsed.toString()}</Td>
+              <Td>{Number(block.gasUsed)}</Td>
             </Tr>
             <Tr>
               <Th>Date:</Th>

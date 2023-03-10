@@ -1,4 +1,5 @@
-import { ethers } from "ethers";
+import { ethers, toBigInt} from "ethers";
+import { type } from "os";
 
 export class Blockchainquery {
   constructor() {
@@ -22,4 +23,5 @@ export class Blockchainquery {
     }
     return `${address.substring(0, 6)}....${address.substring(address.length -4)}`;
   }
+
 }

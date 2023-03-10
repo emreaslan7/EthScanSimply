@@ -26,8 +26,7 @@ function SearchSpesificBlock() {
     setblockvalue(Number(value));
     onToggle();
   };
-  console.log(blockvalue);
-  console.log(typeof(blockvalue));
+
   return (
     <Box
       display="flex"
@@ -40,27 +39,20 @@ function SearchSpesificBlock() {
       <Box my={4} w={{ base: "70px", md: "140px" }} h={{ base: "70px", md: "140px" }}>
         <Image src="/assets/block.png" objectFit="cover" />
       </Box>
-      <Box>
+      <Box mt={4}>
         <FormControl>
           <FormLabel>You can search a specific block on Ethereum </FormLabel>
           <InputGroup>
-            <NumberInput onChangeCapture={(e) => setValue(e.target.value)} value={value}>
+            <NumberInput focusBorderColor="#BDB3DE" onChangeCapture={(e) => setValue(e.target.value)} value={value}>
               <NumberInputField />
             </NumberInput>
 
-            <Button onClick={handleButtonClick}>Search</Button>
+            <Button onClick={handleButtonClick} bgColor={'#BDB3DE'} ml={1} p={3} _hover={{}}>Search</Button>
           </InputGroup>
         </FormControl>
       </Box>
-      <Collapse in={isOpen} animateOpacity>
-        {blockvalue && (
-          <>
-            {/* <Box p="40px" color="white" mt="4" rounded="md" shadow="md">
-              Block Number: {blockvalue}
-            </Box> */}
-            <BlocksInfo BlockNo={blockvalue} />
-          </>
-        )}
+      <Collapse in={isOpen} animateOpacity> 
+        { blockvalue && <BlocksInfo QueryBlockNo={blockvalue} BlockNo={null}/>}
       </Collapse>
     </Box>
   );

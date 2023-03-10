@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Image,
@@ -7,26 +7,17 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Spinner,
-  Center,
   Text
 } from "@chakra-ui/react";
 import BlocksInfo from "../BlocksInfo";
 
 function SearchLatestBlocks() {
-  // const [loading, setLoading] = useState(false);
-
-  // function handleTabsChange() {
-  //   setLoading(true);
-  //   setTimeout(() => setLoading(false), 1000);
-  // }
 
   return (
     
     <Tabs
-      // onChange={handleTabsChange}
       isLazy
-      mt={{ base: 6, md: 8 }}
+      mt={{ base: 4 }}
       colorScheme="whiteAlpha"
       defaultIndex={2}
       w={{ base: "100%", lg: "50%" }}
@@ -112,27 +103,15 @@ function SearchLatestBlocks() {
 
 
       
-      <TabPanels>
-        <TabPanel>
-          {/* {loading ? (
-            <Center>
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="#9c8fd8"
-                size="xl"
-              />
-            </Center>
-          ) : ( */}
-            <BlocksInfo BlockNo={2} />
-          {/* )} */}
+      <TabPanels px={0} pt={3}>
+        <TabPanel pl={0}>
+            <BlocksInfo BlockNo={2} QueryBlockNo={null}/>
         </TabPanel>
-        <TabPanel>
-            <BlocksInfo BlockNo={1} />
+        <TabPanel pl={0}>
+            <BlocksInfo BlockNo={1} QueryBlockNo={null}/>
         </TabPanel>
-        <TabPanel>
-            <BlocksInfo BlockNo={0} />
+        <TabPanel pl={0}>
+            <BlocksInfo BlockNo={0} QueryBlockNo={null}/>
         </TabPanel>
       </TabPanels>
     </Tabs>
