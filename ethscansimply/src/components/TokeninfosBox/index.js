@@ -18,7 +18,7 @@ function Tokeninfos() {
       borderWidth="4px"
       borderColor="#9c8fd8"
       bg="#cec3fa"
-      boxShadow="xl"
+      boxShadow="2xl"
       transition="all 0.2s ease-in-out"
       position="relative"
     >
