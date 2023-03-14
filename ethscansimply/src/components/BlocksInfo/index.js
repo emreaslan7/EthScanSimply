@@ -1,7 +1,6 @@
 import { Box, Table,Tbody, Tr, Th, Td, Center, Spinner} from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Blockchainquery } from "../../ethers/blockchainquery";
-import { ethers } from "ethers";
 
 const blockchain = new Blockchainquery();
 
@@ -12,7 +11,7 @@ function BlocksInfo(props) {
   useEffect(() => {
     async function fetchBlockchainData() {
       const latestBlockNumber = await blockchain.getBlockNumber();
-;
+
       const latestBlock = await blockchain.getBlock(
         latestBlockNumber - props.BlockNo
       );
