@@ -96,7 +96,9 @@ export class Blockchainquery {
       const tokenId = event.args[2].toString();
 
       // Get the metadata from the tokenURI function of the contract
-      const metadata = await contractErc721.tokenURI(tokenId);
+      const NFTcontract = new ethers.Contract(receipt.to, contractABIerc721, this.provider);
+      const metadata = await NFTcontract.tokenURI(tokenId);
+     
 
       let img = '';
       if(from === "0x0000000000000000000000000000000000000000"){
