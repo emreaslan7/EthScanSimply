@@ -48,6 +48,7 @@ export class Blockchainquery {
 
     const date = new Date(block.timestamp * 1000).toLocaleString()
     const fee = ethers.formatEther(receipt.gasUsed*receipt.gasPrice);
+    let metadata = null;
 
     // Check if the contract address matches the ERC-20 contract address
 
@@ -79,7 +80,6 @@ export class Blockchainquery {
      
       
       let img = '';
-      let metadata='';
       if(from === "0x0000000000000000000000000000000000000000"){
         img = 'mint'
         const NFTcontract = new ethers.Contract(receipt.to, contractABIerc721, this.provider);
@@ -121,8 +121,8 @@ export class Blockchainquery {
       console.log("From Address: ", event.args[0]);
       console.log("To Address: ", event.args[1]);
       console.log("Amount: ", event.args[2].toString());
-      return{receipt: receipt,img:'erc20transfer',  name: event.name, fee: fee,date:date, from: event.args[0], to: event.args[1], amount: event.args[2].toString()}
-    } 
+      return{receipt: receipt,img:'erc20transfer',  name: event.name, fee: fee,date:date, from: event.args[0], to: event.args[1], amount: event.args[2].toString(),metadata:metadata}
+    }
 
 
     // Check if the contract address matches the ERC-721 contract address
