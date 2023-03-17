@@ -9,7 +9,8 @@ function Blockchain() {
     <Box 
     w={{ base:"300px", lg: "300px", xl: "350px"}}
     h={{ base:"300px", lg: "300px", xl: "350px"}}
-    justify-self="start">
+    justify-self="start" boxShadow='xl'
+    >
     <Link href="/blockchain" textDecoration="none">
     <Box
       display="flex"

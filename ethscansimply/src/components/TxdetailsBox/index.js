@@ -17,7 +17,8 @@ function Txdetails() {
   return (
     <Box         
     w={{ base: "300px", lg: "300px", xl: "350px" }}
-    h={{ base: "300px", lg: "300px", xl: "350px" }}>
+    h={{ base: "300px", lg: "300px", xl: "350px" }}
+    boxShadow='xl'>
     <Box
       display="flex"
       alignItems="center"

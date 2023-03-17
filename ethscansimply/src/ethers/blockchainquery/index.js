@@ -49,9 +49,59 @@ export class Blockchainquery {
     const date = new Date(block.timestamp * 1000).toLocaleString()
     const fee = ethers.formatEther(receipt.gasUsed*receipt.gasPrice);
 
-
     // Check if the contract address matches the ERC-20 contract address
+
+
+
+
     try{
+      const log = receipt.logs.find(log => {
+        try {
+          const event = contractErc721.interface.parseLog(log);
+          console.log(event);
+          return (event.name === "Transfer" && Number(event.args[2]) < 100000);
+        } catch (err) {
+          return false;
+        }
+      });
+
+      // Parse the event from the log using the ERC-721 contract interface
+      const event = contractErc721.interface.parseLog(log);
+      
+      // Get the transfer details from the event logs
+      const from = event.args[0];
+      const to = event.args[1];
+      const tokenId = event.args[2].toString();
+      const contractAddress = log.address;
+
+      // Get the metadata from the tokenURI function of the contract
+
+     
+      
+      let img = '';
+      let metadata='';
+      if(from === "0x0000000000000000000000000000000000000000"){
+        img = 'mint'
+        const NFTcontract = new ethers.Contract(receipt.to, contractABIerc721, this.provider);
+        metadata = await NFTcontract.tokenURI(tokenId);
+      }else{
+        img = 'erc721transfer'
+        const NFTcontract = new ethers.Contract(contractAddress, contractABIerc721, this.provider);
+        metadata = await NFTcontract.tokenURI(tokenId);
+      }
+      
+      
+      // Print the transfer details and metadata
+      console.log("Transfer Details (ERC-721):");
+      console.log("From Address: ", from);
+      console.log("To Address: ", to);
+      console.log("Token ID: ", tokenId);
+      console.log("Metadata: ", metadata);
+      console.log("Contract Address: ", contractAddress)
+      return {receipt: receipt, img: img, fee:fee,date:date, from: from,to: to, tokenId: tokenId, metadata: metadata};
+
+    }
+      catch(err) {
       const log = receipt.logs.find(log => {
         try {
           const event = contractErc20.interface.parseLog(log);
@@ -76,46 +126,7 @@ export class Blockchainquery {
 
 
     // Check if the contract address matches the ERC-721 contract address
-    catch(err) {
-
-      const log = receipt.logs.find(log => {
-        try {
-          const event = contractErc721.interface.parseLog(log);
-          return (event.name === "Transfer");
-        } catch (err) {
-          return false;
-        }
-      });
-
-      // Parse the event from the log using the ERC-721 contract interface
-      const event = contractErc721.interface.parseLog(log);
-      console.log(event);
-      // Get the transfer details from the event logs
-      const from = event.args[0];
-      const to = event.args[1];
-      const tokenId = event.args[2].toString();
-
-      // Get the metadata from the tokenURI function of the contract
-      const NFTcontract = new ethers.Contract(receipt.to, contractABIerc721, this.provider);
-      const metadata = await NFTcontract.tokenURI(tokenId);
-     
-
-      let img = '';
-      if(from === "0x0000000000000000000000000000000000000000"){
-        img = 'mint'
-      }else{
-        img = 'erc721transfer'
-      }
-      
-      
-      // Print the transfer details and metadata
-      console.log("Transfer Details (ERC-721):");
-      console.log("From Address: ", from);
-      console.log("To Address: ", to);
-      console.log("Token ID: ", tokenId);
-      console.log("Metadata: ", metadata);
-      return {receipt: receipt, img: img, fee:fee,date:date, from: from,to: to, tokenId: tokenId, metadata: metadata}
-    } 
+    
     //  console.log("Transaction does not contain any ERC-20 or ERC-721 transfer events.");
   } else {
     console.log("Transaction does not contain any logs.");

@@ -7,7 +7,8 @@ function Tokeninfos() {
   return (
     <Box
     w={{ base: "300px", lg: "300px", xl: "350px"}}
-    h={{ base: "300px", lg: "300px", xl: "350px"}}>
+    h={{ base: "300px", lg: "300px", xl: "350px"}}
+    boxShadow='xl'>
     <Link href="/tokeninfos" textDecoration="none">
     <Box
       display="flex"

@@ -14,16 +14,15 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { Blockchainquery } from "../../../ethers/blockchainquery";
-import SearchSpesificBlock from "../../../components/SearchSpesificBlock";
 import MetadataImage from "../../../components/MetadataImage";
 
 function TxHash({ txhash }) {
   const blockchain = new Blockchainquery();
 
   const txHashmint =
-    "0xe847109ab6cbbac8a27990236cb173a35b3f13dedc8b35562531a7dfad10d14e";
+    "0xa688da92b6ede08f5e2a12fd1f42cd850eac3a1a3e8512aeda5d297d44ba35c3";
   const txHasherc721 =
-    "0xd13eace6587f3cf0cbb6ba31a6482396e669e368e5f37f33a8135fc4f63e456c";
+    "0xd3d20790ec50eb9fa7be4ec406a41f2c3b0f1d64b7b110eb9ba5e0af4eb015c5";
   const txHasherc20 =
     "0xe59f83e4ef8e1aea9bb6fec94dff30eb4dc035b2435c56882080310f2372591d";
 
@@ -31,7 +30,7 @@ function TxHash({ txhash }) {
 
   useEffect(() => {
     async function fetchTxData() {
-      const tx = await blockchain.getTransferDetails(txHashmint);
+      const tx = await blockchain.getTransferDetails(txHasherc721);
       
       setTx(tx);
       console.log(tx);
@@ -101,11 +100,8 @@ function TxHash({ txhash }) {
               </Tr>
             </Tbody>
           </Table>
-          <Box w={{ base: "100%", lg: "50%" }}>
+          <Box w={{ base: "100%", lg: "90%" }}>
             <MetadataImage Metadata={tx.metadata}/>
-            Metadata verileri gelecek;
-            Skeleton konulacak;
-            Sayfalar arasi geçişte bekleme;
           </Box>
           </Flex>
 
