@@ -28,15 +28,15 @@ function Blockchain() {
 
       <Tooltip 
         hasArrow 
-        label="adam mısın olm" 
+        label="Let's look at everything of ethereum blocks" 
         placement='top-end' 
         openDelay={300} closeDelay={400} 
         bg='#9c8fd8' 
         color='white'
-        fontSize={'12px'}
+        fontSize={'16px'}
         borderRadius="md">
 
-          <InfoIcon boxSize={5} position="absolute" top="1" right="1" m={1} color="#9c8fd8"/>
+          <InfoIcon boxSize={6} position="absolute" top="1" right="1" m={1} color="#9c8fd8"/>
 
       </Tooltip>
         

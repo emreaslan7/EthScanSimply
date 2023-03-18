@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Image, Text, Skeleton, SkeletonCircle } from "@chakra-ui/react";
+import { Box, Image, Text, Skeleton} from "@chakra-ui/react";
 import axios from "axios";
 
 function MetadataImage(props) {

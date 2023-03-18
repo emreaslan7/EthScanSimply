@@ -1,17 +1,30 @@
 import React, {useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import { Box, Text, Tooltip, Center, Button ,Input} from '@chakra-ui/react';
+import { Box, Text, Tooltip, Center, Button ,Input, useToast} from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
 import { color } from 'framer-motion';
 
 function Txdetails() {
   const router = useRouter();
+  const toast = useToast();
 
   const [value, setValue] = useState("");
 
   const handleButtonClick = () => {
-    router.push(`/txdetails/${value}`);
+    if (value.length != 66) {
+      return (
+        toast({
+          title: 'This is not Tx hash',
+          description: "Please paste correct hash",
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+        })
+      )
+    } else {
+      router.push(`/txdetails/${value}`);
+    }
   };
 
   return (
@@ -35,15 +48,15 @@ function Txdetails() {
 
       <Tooltip 
         hasArrow 
-        label="adam mısın olm" 
+        label="You can examine any transaction details in here." 
         placement='top-end' 
         openDelay={300} closeDelay={500} 
         bg='#9c8fd8' 
         color='white'
-        fontSize={'12px'}
+        fontSize={'16px'}
         borderRadius="md">
 
-          <InfoIcon boxSize={5} position="absolute" top="1" right="1" m={1} color="#9c8fd8"/>
+          <InfoIcon boxSize={6} position="absolute" top="1" right="1" m={1} color="#9c8fd8"/>
 
       </Tooltip>
         
