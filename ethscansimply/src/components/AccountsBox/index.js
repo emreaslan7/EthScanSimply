@@ -1,32 +1,30 @@
-import React, {useState} from 'react'
+import React,{useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import { Box, Text, Tooltip, Center, Button ,Input, useToast} from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { color } from 'framer-motion';
 
-function Txdetails() {
+function AccountsBox() {
   const router = useRouter();
   const toast = useToast();
 
   const [value, setValue] = useState("");
-
+  console.log(value.length);
   const handleButtonClick = () => {
-    if (value.length != 66) {
+    if (value.length != 42) {
       return (
         toast({
-          title: 'This is not Tx hash',
-          description: "Please paste correct hash",
+          title: 'This is not an address',
+          description: "Please write an address",
           status: 'error',
           duration: 7000,
           isClosable: true,
         })
       )
     } else {
-      router.push(`/txdetails/${value}`);
+      router.push(`/accounts/${value}`);
     }
   };
-
   return (
     <Box         
     w={{ base: "300px", lg: "300px", xl: "350px" }}
@@ -48,7 +46,7 @@ function Txdetails() {
 
       <Tooltip 
         hasArrow 
-        label="You can examine any transaction details in here." 
+        label="You can deep dive into the ethereum accounts (contract or externally)" 
         placement='top-end' 
         openDelay={300} closeDelay={500} 
         bg='#9c8fd8' 
@@ -62,11 +60,11 @@ function Txdetails() {
         
       <Box w={"90%"}>
         <Text wordBreak={'normal'} fontSize={{ base: '24px', xl:'29px'}} letterSpacing="0.25em" ml={1} color="#9c8fd8" fontWeight="extrabold" textDecoration="none" textAlign={"center"}>
-          TRANSACTION DETAILS
+          ACCOUNT INFORMATION
         </Text>
         
 
-        <Input mt={4} fontWeight={'semibold'} color={'#9c8fd8'} placeholder='paste tx hash' _placeholder={{fontSize:'sm' ,color:'#9c8fd8', opacity:'0.75', fontWeight:'normal'}} size={'lg'} border='3px solid #9c8fd8' _hover={{}} focusBorderColor="#9c8fd8" onChange={(e) => setValue(e.target.value)} value={value} />
+        <Input mt={4} fontWeight={'semibold'} color={'#9c8fd8'} placeholder='paste address (contract or eoa wallet)' _placeholder={{fontSize:'sm' ,color:'#9c8fd8', opacity:'0.75', fontWeight:'normal'}} size={'lg'} border='3px solid #9c8fd8' _hover={{}} focusBorderColor="#9c8fd8" onChange={(e) => setValue(e.target.value)} value={value} />
         <Center mt={1}>
 
          <Button onClick={handleButtonClick} w={'80%'} border='3px solid #9c8fd8' bgColor={'#cec3fa'} color='#9c8fd8' _hover={{bgColor:'#9c8fd8',color:'#cec3fa'}} transition='all ease-in 0.3s'> Search on Ethereum </Button>
@@ -79,4 +77,4 @@ function Txdetails() {
   )
 }
 
-export default Txdetails;
+export default AccountsBox;
