@@ -9,6 +9,24 @@ export class Blockchainquery {
     );
   }
 
+  formatAddress(address) {
+    if (!address) {
+      return "";
+    }
+    return `${address.substring(0, 6)}....${address.substring(
+      address.length - 4
+    )}`;
+  }
+
+  isAddr(add){
+    return ethers.isAddress(add);
+  }
+
+  async isContractAcc(address){
+    const isContract = await this.provider.getCode(address);
+    return isContract;
+  }
+
   async getBlockNumber() {
     const blockNumber = await this.provider.getBlockNumber();
     return blockNumber;
@@ -19,13 +37,16 @@ export class Blockchainquery {
     return block;
   }
 
-  formatAddress(address) {
-    if (!address) {
-      return "";
-    }
-    return `${address.substring(0, 6)}....${address.substring(
-      address.length - 4
-    )}`;
+  async getAccountDetails(address){
+    const balanceBigNumber = await this.provider.getBalance(address);
+    const balance = ethers.formatEther(balanceBigNumber);
+    
+    const nonce = await this.provider.getTransactionCount(address);
+
+    const ensName = await this.provider.lookupAddress(address);
+    
+    return {balance: balance, nonce: nonce, ensName: ensName}
+
   }
 
   async getTransferDetails(txHash) {

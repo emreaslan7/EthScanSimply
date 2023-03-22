@@ -3,26 +3,28 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import { Box, Text, Tooltip, Center, Button ,Input, useToast} from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
+import { Blockchainquery } from "../../ethers/blockchainquery";
 
 function AccountsBox() {
+  const blockchain = new Blockchainquery();
   const router = useRouter();
   const toast = useToast();
 
   const [value, setValue] = useState("");
-  console.log(value.length);
+  
   const handleButtonClick = () => {
-    if (value.length != 42) {
+    if(blockchain.isAddr(value)){
+      router.push(`/accounts/${value}`);
+    }else{
       return (
         toast({
-          title: 'This is not an address',
+          title: 'This is not a valid address',
           description: "Please write an address",
           status: 'error',
           duration: 7000,
           isClosable: true,
         })
       )
-    } else {
-      router.push(`/accounts/${value}`);
     }
   };
   return (
