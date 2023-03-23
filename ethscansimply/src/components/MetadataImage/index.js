@@ -3,7 +3,6 @@ import { Box, Image, Text, Skeleton} from "@chakra-ui/react";
 import axios from "axios";
 
 function MetadataImage(props) {
-  console.log("Props.Metadata", props.Metadata);
   const [metadata, setMetadata] = useState(null);
   const [loaded, setLoaded] = useState(false);
 

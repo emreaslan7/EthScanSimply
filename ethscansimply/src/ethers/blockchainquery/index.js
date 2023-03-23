@@ -45,7 +45,7 @@ export class Blockchainquery {
 
     const ensName = await this.provider.lookupAddress(address);
     
-    return {balance: balance, nonce: nonce, ensName: ensName}
+    return {addr: address, balance: balance, nonce: nonce, ensName: ensName}
 
   }
 

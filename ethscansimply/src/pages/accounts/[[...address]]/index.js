@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import React, {useState,useEffect} from 'react'
+import ExternalAccount from '../../../components/ExternalAccount';
 import { Blockchainquery } from "../../../ethers/blockchainquery";
 
 function Accounts({address}) {
@@ -21,12 +22,19 @@ function Accounts({address}) {
       
     }
     fetchAddressData();
-  }, [add]);
-
+  }, []);
+  {console.log('redas')}
   return (
-
+    
     <Box>
-    {add ? (<Box> {add.balance} ETH</Box>) : (<Box>dasdasdsadfadsffff </Box>)}   
+    {add ? (
+      <Box>
+        <ExternalAccount Address={add}/>
+      </Box>
+      ) : (
+      <Box>
+        dasdasdsadfadsffff 
+      </Box>)}   
     </Box>
   )
 }
