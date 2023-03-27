@@ -10,20 +10,23 @@ function Accounts({address}) {
   useEffect(() => {
     
     async function fetchAddressData() {
-      const data = blockchain.isContractAcc(address[0]);
+      const data = await blockchain.isContractAcc(address[0]);
       
+    
       if(data === '0x'){
-        setAdd(address[0]);
-      }else{
+        console.log('account address',address[0])
         const addressInfo = await blockchain.getAccountDetails(address[0]);
         setAdd(addressInfo);
+      }else{
+        console.log('contract address',address[0])
+        const addressInfo = await blockchain.getContractDetails(address[0]);
+        console.log(addressInfo);
       }
 
       
     }
     fetchAddressData();
   }, []);
-  {console.log('redas')}
   return (
     
     <Box>

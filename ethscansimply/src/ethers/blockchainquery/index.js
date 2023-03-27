@@ -39,15 +39,90 @@ export class Blockchainquery {
 
   async getAccountDetails(address){
     const balanceBigNumber = await this.provider.getBalance(address);
-    const balance = ethers.formatEther(balanceBigNumber);
-    
+    const balanceValue = ethers.formatEther(balanceBigNumber);
+    const balance = Math.round(balanceValue * 1000) / 1000;
     const nonce = await this.provider.getTransactionCount(address);
 
     const ensName = await this.provider.lookupAddress(address);
-    
-    return {addr: address, balance: balance, nonce: nonce, ensName: ensName}
+    const formattedAddres = this.formatAddress(address)
+    return {addr: formattedAddres, balance: balance, nonce: nonce, ensName: ensName}
 
   }
+
+  async getContractDetails(address) {
+    try {
+      const daiAbi = [
+        // Some details about the token
+        "function name() view returns (string)",
+        "function symbol() view returns (string)",
+      
+        // Get the account balance
+        "function balanceOf(address) view returns (uint)",
+      
+        // An event triggered whenever anyone transfers to someone else
+        "event Transfer(address indexed from, address indexed to, uint amount)",
+      
+        // Get the total supply of tokens
+        "function totalSupply() view returns (uint)",
+
+        // Get the owner of the contract
+        "function owner() view returns (address)"
+      ];
+      
+      // Contract Instance
+      const contractInstance = new ethers.Contract(address, daiAbi, this.provider);
+  
+      // // Contract Bytecode
+      // const contractBytecode = await this.provider.getCode(address);
+  
+      // Contract Name
+      const contractName =  await contractInstance.name();
+  
+      // Contract Symbol
+      const contractSymbol =  await contractInstance.symbol();
+  
+      // Contract Total Supply
+      const contractTotalSupply = await contractInstance.totalSupply();
+  
+      // Contract Owner
+      const contractOwner = await contractInstance.owner();
+  
+      // Contract Balance
+      const contractBalance = await this.provider.getBalance(address);
+  
+      // Event dinleme başlat
+      // const eventListener = contractInstance.on("Transfer", (from, to, amount) => {
+      //   console.log(`Transfer: ${from} -> ${to} - Amount: ${amount}`);
+      // });
+
+      contractInstance.on("Transfer", (from, to, _amount, event) => {
+        const amount = ethers.formatEther(_amount, 18)
+        console.log(`${ from } => ${ to }: ${ amount }`);
+      
+        // The `event.log` has the entire EventLog
+        
+        setTimeout(() => {
+          event.removeListener();
+          console.log("stopped");
+        }, 8000);
+
+      });
+
+
+      return {
+        instance: contractInstance,
+        // bytecode: contractBytecode,
+        name: contractName,
+        symbol: contractSymbol,
+        totalSupply: contractTotalSupply,
+        owner: contractOwner,
+        balance: contractBalance
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
 
   async getTransferDetails(txHash) {
     
