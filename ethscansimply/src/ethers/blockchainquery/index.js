@@ -1,6 +1,4 @@
-import { ContractFactory, ethers, toBigInt } from "ethers";
-import { type } from "os";
-import { measureMemory } from "vm";
+import { ethers, toBigInt } from "ethers";
 
 export class Blockchainquery {
   constructor() {
@@ -55,6 +53,7 @@ export class Blockchainquery {
         // Some details about the token
         "function name() view returns (string)",
         "function symbol() view returns (string)",
+        "function decimals() view returns (uint8)",
       
         // Get the account balance
         "function balanceOf(address) view returns (uint)",
@@ -72,9 +71,6 @@ export class Blockchainquery {
       // Contract Instance
       const contractInstance = new ethers.Contract(address, daiAbi, this.provider);
   
-      // // Contract Bytecode
-      // const contractBytecode = await this.provider.getCode(address);
-  
       // Contract Name
       const contractName =  await contractInstance.name();
   
@@ -82,40 +78,40 @@ export class Blockchainquery {
       const contractSymbol =  await contractInstance.symbol();
   
       // Contract Total Supply
-      const contractTotalSupply = await contractInstance.totalSupply();
-  
-      // Contract Owner
-      const contractOwner = await contractInstance.owner();
+      const totalSupplyBigInt = await contractInstance.totalSupply();
+      const contractTotalSupply = totalSupplyBigInt.toLocaleString();
+
+      // Decimal
+      const decimalValue = await contractInstance.decimals();
+      const decimal = decimalValue.toString();
   
       // Contract Balance
-      const contractBalance = await this.provider.getBalance(address);
-  
-      // Event dinleme başlat
-      // const eventListener = contractInstance.on("Transfer", (from, to, amount) => {
-      //   console.log(`Transfer: ${from} -> ${to} - Amount: ${amount}`);
-      // });
+      const contractBalanceBigInt = await this.provider.getBalance(address);
+      const contractBalance = contractBalanceBigInt.toLocaleString();
 
+      // events
+      const transferLogs = [];
       contractInstance.on("Transfer", (from, to, _amount, event) => {
-        const amount = ethers.formatEther(_amount, 18)
-        console.log(`${ from } => ${ to }: ${ amount }`);
-      
-        // The `event.log` has the entire EventLog
-        
+        const formattedFrom = this.formatAddress(from);
+        const formattedTo = this.formatAddress(to);;
+        const amount = _amount.toLocaleString();
+        const transferLog = { formattedFrom, formattedTo, amount, event };
+        transferLogs.push(transferLog);
+
         setTimeout(() => {
           event.removeListener();
           console.log("stopped");
-        }, 8000);
+        }, 5000);
 
       });
 
 
       return {
-        instance: contractInstance,
-        // bytecode: contractBytecode,
+        transferLogs: transferLogs,
         name: contractName,
         symbol: contractSymbol,
         totalSupply: contractTotalSupply,
-        owner: contractOwner,
+        decimals: decimal,
         balance: contractBalance
       };
     } catch (error) {
