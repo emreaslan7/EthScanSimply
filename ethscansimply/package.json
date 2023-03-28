@@ -18,13 +18,11 @@
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "ethers": "^6.0.8",
-    "framer-motion": "^10.0.0",
-    "ipfs-core": "^0.18.0",
-    "ipfs-http-client": "^60.0.0",
     "next": "13.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "react-ticker": "^1.3.2"
   },
   "devDependencies": {
     "@types/node": "18.14.1",

@@ -1,42 +1,70 @@
-import { Box, Text, Container, Center, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
+import { Box, Text, Container, Center, Table, Thead, Tbody, Tr, Th, Td, Spinner } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { Blockchainquery } from "../../ethers/blockchainquery";
 
 
 
-function MyTable({TransferLogs}) {
-    console.log(TransferLogs);
-    const [transferLogs, setTransferLogs] = useState(TransferLogs);
-
-    useEffect(() => {
-      async function updateLogs() {
-        await new Promise(resolve => setTimeout(resolve, 7000)); // 5 saniye bekleyelim
-        setTransferLogs(TransferLogs);
-      }
-      updateLogs();
-    }, [TransferLogs]);
-  
-
-    return (
-      <Table variant='striped' colorScheme='#9c8fd8'>
-        <Thead>
-          <Tr>
-            <Th w={"33.33%"} textAlign={'center'}>From</Th>
-            <Th w={"33.33%"} textAlign={'center'}>Amount</Th>
-            <Th w={"33.33%"} textAlign={'center'}>To</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-        {transferLogs.map((log, index) => (
-            
+function MyTable({ContractInstance}) {
+  const blockchain = new Blockchainquery();
+  const [events, setEvents] = useState([]);
+  console.log("Events List",events)
+  useEffect(() => {
+    
+    async function fetchAddressData() {
+      console.log("CONTRCATINSTANCE", ContractInstance)
+      const logs = await blockchain.getContractsEvents(ContractInstance);
+      console.log("Events List",events);
+      console.log('logs',logs);
+      setEvents(logs);
+    }
+    fetchAddressData();
+  }, []);
+  return events.length > 0 ? (
+    <Table
+      variant="striped"
+      colorScheme="#9c8fd8"
+      size={{ base: "xs", md: "md" }}
+    >
+      <Thead>
+        <Tr>
+          <Th w={"33.33%"} textAlign={"center"}>
+            From
+          </Th>
+          <Th w={"33.33%"} textAlign={"center"}>
+            Amount
+          </Th>
+          <Th w={"33.33%"} textAlign={"center"}>
+            To
+          </Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {events.map((log, index) => (
           <Tr key={index}>
-            <Td>{log.formattedFrom}</Td>
-            <Td textAlign={'center'}>{log.amount}</Td>
-            <Td textAlign={'end'}>{log.formattedTo}</Td>
+            <Td fontSize={{ base: "xs", md: "md" }}>{log.formattedFrom}</Td>
+            <Td fontSize={{ base: "xs", md: "md" }} textAlign={"center"}>
+              {log.amount}
+            </Td>
+            <Td fontSize={{ base: "xs", md: "md" }} textAlign={"end"}>
+              {log.formattedTo}
+            </Td>
           </Tr>
         ))}
-        </Tbody>
-      </Table>
-    );
+      </Tbody>
+    </Table>
+  ) : (
+    <Box display={'flex'}alignItems='center' justifyContent={'center'}>
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="#BDB3DE"
+        color="#cec3fa"
+        size="xl"
+      />
+      <Text ml={3}>We are searching last blocks</Text>
+    </Box>
+  );
+  
 }
 
 function ContractAccount({Address}) {
@@ -131,7 +159,7 @@ function ContractAccount({Address}) {
         </Box>
       </Box>
       <Text mt={9} fontWeight="hairline" fontSize={'3xl'}>Last {Address.symbol} Transfers</Text>
-      <MyTable TransferLogs={Address.transferLogs}/>
+      <MyTable ContractInstance={Address.contractInstance}/>
     </Container>
   );
 }

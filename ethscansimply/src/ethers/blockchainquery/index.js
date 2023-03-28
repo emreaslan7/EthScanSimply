@@ -89,25 +89,8 @@ export class Blockchainquery {
       const contractBalanceBigInt = await this.provider.getBalance(address);
       const contractBalance = contractBalanceBigInt.toLocaleString();
 
-      // events
-      const transferLogs = [];
-      contractInstance.on("Transfer", (from, to, _amount, event) => {
-        const formattedFrom = this.formatAddress(from);
-        const formattedTo = this.formatAddress(to);;
-        const amount = _amount.toLocaleString();
-        const transferLog = { formattedFrom, formattedTo, amount, event };
-        transferLogs.push(transferLog);
-
-        setTimeout(() => {
-          event.removeListener();
-          console.log("stopped");
-        }, 5000);
-
-      });
-
-
       return {
-        transferLogs: transferLogs,
+        contractInstance: contractInstance,
         name: contractName,
         symbol: contractSymbol,
         totalSupply: contractTotalSupply,
@@ -117,6 +100,42 @@ export class Blockchainquery {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async getContractsEvents(contractInstance){
+    // events
+
+    const transferLogs = [];
+    await contractInstance.on("Transfer", (from, to, _amount, event) => {
+      const formattedFrom = this.formatAddress(from);
+      const formattedTo = this.formatAddress(to);
+      function formatAmount(_amount) {
+        const parts = amount.toString().split('.');
+        let formattedAmount = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (parts[1]) {
+          formattedAmount += '.' + (parts[1].length === 1 ? parts[1] + '0' : parts[1]);
+        } else {
+          formattedAmount += '.00';
+        }
+        console.log(formattedAmount);
+      }
+      formatAmount(_amount);
+
+
+      const amount = _amount.toLocaleString();
+      const transferLog = { formattedFrom, formattedTo, amount, event };
+      transferLogs.push(transferLog);
+
+      setTimeout( () => {
+        event.removeListener();
+        console.log("stopped");
+      }, 5000);
+    });
+    while (transferLogs.length === 0) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  
+    return transferLogs;
   }
   
 
