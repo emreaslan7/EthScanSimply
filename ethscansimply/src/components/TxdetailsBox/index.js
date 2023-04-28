@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import { Box, Text, Tooltip, Center, Button ,Input, useToast} from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { color } from 'framer-motion';
+// import { color } from 'framer-motion';
 
 function Txdetails() {
   const router = useRouter();
