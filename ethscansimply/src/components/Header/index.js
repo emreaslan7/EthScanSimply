@@ -8,7 +8,7 @@ function Header() {
           <Box>
       {/* <Ticker speed={5}>
         {({ index }) => (
-          <Text mx={3}>
+          <Text mx={3} noOfLines={1} >
               ETHScanSimply: An easy-to-use interface for exploring Ethereum. Ideal for beginners and kids!
           </Text>
         )}
