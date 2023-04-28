@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react'
 
 const interFontFamily = Inter({ subsets: ['latin'] });
 
-export default function Layout({ children }) {
+export default function Layouts({ children }) {
     return (
         <div className={interFontFamily.className}>
             <Box display="flex" flexDirection="column" height="100vh">
