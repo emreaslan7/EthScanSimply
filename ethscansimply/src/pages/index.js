@@ -17,14 +17,15 @@ export default function Home() {
         <link rel='icon' href='/ethereum-icon.png' />
       </Head>
 
-      <div style={{ display: "flex", justifyContent: "center", height:"100%"}}>
+      <div style={{ display: "flex", justifyContent: "center", height:"100%", backgroundColor:"#fcfcfc"}}>
 
 
       <Grid 
       templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)",}}
       gap={{ base: 4, sm: 6, lg: 8, xl: 11, "2xl": 20,}}
       justifyContent="center"
-      alignItems="center">
+      alignItems="center"
+      backgroundColor={'#fcfcfc'}>
 
         <AccountsBox/>
 

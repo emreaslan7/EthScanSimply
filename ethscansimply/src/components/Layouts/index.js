@@ -12,7 +12,7 @@ export default function Layouts({ children }) {
             
                 <Header/>
 
-                    <Box bg={"#83a8f9"} color="white" flex="1">
+                    <Box bg={"#fcfcfc"} color="black" flex="1">
                         {children}
                     </Box>
                     

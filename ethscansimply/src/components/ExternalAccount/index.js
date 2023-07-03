@@ -5,7 +5,7 @@ import React from 'react'
 function ExternalAccount({Address}) {
   return (
 
-  <Box position="relative" maxHeight="100vh">
+  <Box position="relative" maxHeight="100vh" backgroundColor={'#fcfcfc'}>
     {/* account-head.png - Üst kenarın ortasında */}
     <Box position="absolute" top="0" left="50%" transform="translateX(-50%)">
       <Image src="/assets/account-head.png" minW={'300px'}/>

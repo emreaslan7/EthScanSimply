@@ -32,7 +32,8 @@ function Accounts({address}) {
   }, []);
   return (
     
-        <Box>
+        <Box
+        backgroundColor={'#fcfcfc'}>
 
       {add && data === '0x' ? (
         <ExternalAccount Address={add} />
