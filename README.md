@@ -10,7 +10,7 @@ This project is developed for improving ethers.js skills, learning deep dive nex
 
 ## Demo
 
-[ETHscanSimply.app](https://hearth-hue.vercel.app/)
+[ETHscanSimply.app](https://ethscansimply.vercel.app/)
 
 
 
